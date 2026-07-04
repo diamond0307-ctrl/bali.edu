@@ -1,0 +1,24 @@
+# Local source materials and exports not required for the static LP
+*.heic
+*.HEIC
+*.pdf
+*.PDF
+*.png
+*.PNG
+*.txt
+
+# Original photo pool kept locally; optimized site images live in assets/
+*.JPG
+*.JPEG
+*.jpg
+*.jpeg
+!assets/*.jpg
+!assets/*.jpeg
+
+# Local assistant/project notes
+AGENTS.md
+CLAUDE.md
+PROGRESS.md
+
+# OS/editor noise
+.DS_Store
