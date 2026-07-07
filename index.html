@@ -900,6 +900,7 @@
     }
 
     .mom-time {
+      padding-bottom: 16px;
       background:
         linear-gradient(120deg, #fffaf0 0%, #e6fbff 48%, #e6fff6 100%);
     }
@@ -946,6 +947,8 @@
     }
 
     .soft-learning {
+      padding-top: 24px;
+      padding-bottom: 58px;
       background:
         linear-gradient(180deg, #e5fff7 0%, #f9fff9 46%, #fffaf0 100%);
     }
@@ -2590,6 +2593,8 @@
 
     @media (min-width: 840px) {
       .section { padding: 112px 0; }
+      .mom-time { padding-bottom: 32px; }
+      .soft-learning { padding-top: 56px; padding-bottom: 82px; }
       .nav-links {
         display: flex;
         align-items: center;
@@ -2837,8 +2842,6 @@
       <section class="section soft-learning">
         <div class="container">
           <div class="soft-learning-head">
-            <span class="section-label reveal">LEARNING IN A JOURNEY</span>
-            <h2 class="reveal">旅の中に、<br>学びがある。</h2>
             <p class="reveal delay-1">教育を目的にしすぎず、バリの暮らしの中で自然に世界を感じる時間です。</p>
           </div>
           <div class="learning-grid">
@@ -2892,12 +2895,26 @@
 
               <label class="bali-calc__field">
                 大人人数
-                <input type="number" id="adultCount" min="1" value="2" inputmode="numeric">
+                <select id="adultCount">
+                  <option value="0">0人</option>
+                  <option value="1">1人</option>
+                  <option value="2" selected>2人</option>
+                  <option value="3">3人</option>
+                  <option value="4">4人</option>
+                  <option value="5">5人</option>
+                </select>
               </label>
 
               <label class="bali-calc__field">
                 子ども人数
-                <input type="number" id="childCount" min="0" value="1" inputmode="numeric">
+                <select id="childCount">
+                  <option value="0">0人</option>
+                  <option value="1" selected>1人</option>
+                  <option value="2">2人</option>
+                  <option value="3">3人</option>
+                  <option value="4">4人</option>
+                  <option value="5">5人</option>
+                </select>
               </label>
 
               <div id="courseField">
@@ -2914,7 +2931,11 @@
               <div id="roomField">
                 <label class="bali-calc__field">
                   部屋数
-                  <input type="number" id="roomCount" min="1" value="1" inputmode="numeric">
+                  <select id="roomCount">
+                    <option value="1" selected>1部屋</option>
+                    <option value="2">2部屋</option>
+                    <option value="3">3部屋</option>
+                  </select>
                 </label>
               </div>
 
@@ -3093,19 +3114,20 @@
       };
 
       const updateChildAgeInputs = () => {
-        const tourType = els.tourType.value;
-        const childCount = Math.max(0, getNumber(els.childCount));
-        const needsAges = tourType === "education_full" || tourType === "school_transfer";
+        const childCount = Math.min(5, Math.max(0, getNumber(els.childCount)));
 
         els.childAgesWrap.innerHTML = "";
-        if (!needsAges || childCount === 0) return;
+        if (childCount === 0) return;
 
         for (let i = 1; i <= childCount; i += 1) {
           const label = document.createElement("label");
           label.className = "bali-calc__field";
+          const options = Array.from({ length: 11 }, (_, age) => {
+            return `<option value="${age}">${age}歳</option>`;
+          }).join("");
           label.innerHTML = `
             お子さま${i}人目の年齢
-            <input type="number" min="0" max="18" placeholder="例：7" inputmode="numeric">
+            <select>${options}</select>
           `;
           els.childAgesWrap.appendChild(label);
         }
@@ -3118,21 +3140,15 @@
         els.roomField.hidden = isSchoolTransferOnly;
         els.hotelField.hidden = isSchoolTransferOnly;
         els.schoolDaysField.hidden = !isSchoolTransferOnly;
-        els.adultCount.min = isSchoolTransferOnly ? "0" : "1";
-
-        if (!isSchoolTransferOnly && getNumber(els.adultCount, 1) < 1) {
-          els.adultCount.value = "1";
-        }
 
         updateChildAgeInputs();
       };
 
       const calculate = () => {
         const tourType = els.tourType.value;
-        const minAdultCount = tourType === "school_transfer" ? 0 : 1;
-        const adultCount = Math.max(minAdultCount, getNumber(els.adultCount, minAdultCount));
-        const childCount = Math.max(0, getNumber(els.childCount));
-        const roomCount = Math.max(1, getNumber(els.roomCount, 1));
+        const adultCount = Math.min(5, Math.max(0, getNumber(els.adultCount, 0)));
+        const childCount = Math.min(5, Math.max(0, getNumber(els.childCount)));
+        const roomCount = Math.min(3, Math.max(1, getNumber(els.roomCount, 1)));
         const participantNote = `大人${adultCount}名 / 子ども${childCount}名`;
 
         let total = 0;
