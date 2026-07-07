@@ -977,21 +977,106 @@
       line-height: 1.8;
     }
 
-    .bali-gallery {
+    .bali-calc {
+      overflow: hidden;
       background:
-        linear-gradient(180deg, #fffaf0 0%, #e0f8ff 44%, #fff0e8 100%);
+        radial-gradient(circle at 12% 16%, rgba(134,199,216,.3) 0 190px, transparent 192px),
+        radial-gradient(circle at 88% 22%, rgba(216,154,85,.22) 0 180px, transparent 182px),
+        linear-gradient(180deg, #fffaf0 0%, #eef7f2 52%, #f5ecdc 100%);
     }
-    .gallery-grid {
+    .bali-calc__inner {
+      position: relative;
+      display: grid;
+      gap: 28px;
+      padding: 24px;
+      border: 1px solid rgba(31,49,43,.12);
+      border-radius: 22px;
+      background: rgba(255,253,247,.82);
+      box-shadow: 0 24px 70px rgba(31,49,43,.12);
+      backdrop-filter: blur(14px);
+    }
+    .bali-calc__head {
+      display: grid;
+      gap: 12px;
+    }
+    .bali-calc__lead {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(15px, 4.2vw, 18px);
+      font-weight: 560;
+      letter-spacing: .01em;
+    }
+    .bali-calc__grid,
+    .bali-calc__ages {
       display: grid;
       gap: 14px;
     }
-    .gallery-photo {
-      min-height: 270px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.7);
+    .bali-calc__field {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 780;
+      letter-spacing: .04em;
     }
-    .gallery-photo.tall { min-height: 390px; }
-    .gallery-photo.wide { min-height: 330px; }
+    .bali-calc input,
+    .bali-calc select {
+      width: 100%;
+      min-height: 54px;
+      padding: 13px 14px;
+      border: 1px solid rgba(31,49,43,.16);
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      color: var(--ink);
+      font: 760 16px/1.35 var(--body-font);
+      letter-spacing: .01em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.82);
+    }
+    .bali-calc input:focus,
+    .bali-calc select:focus {
+      outline: 3px solid rgba(134,199,216,.34);
+      border-color: rgba(39,127,147,.44);
+    }
+    .bali-calc__result {
+      display: grid;
+      gap: 10px;
+      padding: 24px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(47,101,73,.96), rgba(39,127,147,.92)),
+        var(--leaf-deep);
+      color: var(--white);
+      box-shadow: 0 20px 54px rgba(31,49,43,.16);
+    }
+    .bali-calc__result p {
+      color: rgba(255,253,247,.78);
+      font-size: 13px;
+      font-weight: 780;
+      letter-spacing: .12em;
+    }
+    .bali-calc__result strong {
+      display: block;
+      font-family: var(--round-font);
+      font-size: clamp(38px, 10vw, 68px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+    .bali-calc__result small {
+      display: block;
+      max-width: 720px;
+      color: rgba(255,253,247,.84);
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.8;
+    }
+    .bali-calc__notice {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 560;
+      line-height: 1.8;
+    }
 
     .consult {
       background:
@@ -1665,6 +1750,7 @@
     .flow,
     .experiences,
     .overview,
+    .bali-calc,
     .faq {
       background-attachment: fixed;
     }
@@ -1687,6 +1773,9 @@
     .overview {
       background: linear-gradient(180deg, #fbf5e9, #fffdf7 52%, #efe4d1);
     }
+    .bali-calc {
+      background: linear-gradient(180deg, #fffaf0 0%, #eef7f2 52%, #f5ecdc 100%);
+    }
     .faq {
       background: linear-gradient(180deg, #efe4d1, #ead6b9);
     }
@@ -1697,6 +1786,7 @@
     .category-card,
     .overview-card,
     .faq-item,
+    .bali-calc__inner,
     .mid-cta {
       border: 1px solid rgba(31,49,43,.12);
       border-radius: 16px;
@@ -2307,7 +2397,6 @@
     .category-card.reveal,
     .moment-card.reveal,
     .learning-card.reveal,
-    .gallery-photo.reveal,
     .consult-panel.reveal,
     .overview-card.reveal,
     .faq-item.reveal {
@@ -2324,7 +2413,6 @@
     .category-card.reveal.is-visible,
     .moment-card.reveal.is-visible,
     .learning-card.reveal.is-visible,
-    .gallery-photo.reveal.is-visible,
     .consult-panel.reveal.is-visible,
     .overview-card.reveal.is-visible,
     .faq-item.reveal.is-visible {
@@ -2493,8 +2581,6 @@
       .moment-card:nth-child(1),
       .moment-card:nth-child(2) { min-height: 420px; }
       .learning-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); align-items: stretch; }
-      .gallery-photo.wide { grid-column: span 2; }
       .consult-layout { grid-template-columns: 1.05fr .95fr; }
     }
 
@@ -2541,9 +2627,9 @@
       .moment-card:nth-child(2) { grid-column: span 2; min-height: 380px; }
       .mom-time-layout { grid-template-columns: .9fr 1.1fr; gap: 64px; }
       .mom-time-photo { min-height: 620px; }
-      .gallery-grid { grid-template-columns: 1.15fr .85fr 1fr; gap: 18px; }
-      .gallery-photo.wide { grid-column: span 2; }
-      .gallery-photo.tall { grid-row: span 2; min-height: 620px; }
+      .bali-calc__inner { padding: 40px; }
+      .bali-calc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+      .bali-calc__ages { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .consult-layout { grid-template-columns: 1.08fr .92fr; gap: 34px; }
       .asuka-layout { grid-template-columns: .96fr 1.04fr; gap: 72px; }
       .asuka-profile-card {
@@ -2642,7 +2728,7 @@
         <div class="nav-links">
           <a href="#about">GUIDE</a>
           <a href="#bali">BALI</a>
-          <a href="#gallery">SCENES</a>
+          <a href="#bali-price-simulator">PRICE</a>
           <a href="#contact">CONTACT</a>
         </div>
         <a class="btn nav-cta btn-primary" href="https://line.me/R/ti/p/@your-id">まずは相談</a>
@@ -2673,8 +2759,8 @@
             </div>
           </div>
           <div class="btn-row">
-            <a class="btn btn-primary" href="https://line.me/R/ti/p/@your-id"><span class="mark">L</span>まずは話を聞いてみる</a>
-            <a class="btn btn-secondary" href="https://www.instagram.com/your_account/"><span class="mark">◎</span>Instagramを見る</a>
+            <a class="btn btn-primary" href="https://line.me/R/ti/p/@your-id"><span class="mark">L</span>お申し込みフォーム</a>
+            <a class="btn btn-secondary" href="https://www.instagram.com/your_account/"><span class="mark">◎</span>DMで相談</a>
           </div>
           <div class="scroll-cue">SCROLL THE JOURNEY</div>
           <div class="hero-facts" aria-label="滞在の基本情報">
@@ -2710,7 +2796,7 @@
               <div class="polaroid-photo has-photo" style="--photo: url('assets/family-scooter.jpg'); --pos: center 38%;" data-photo="親子の散歩" aria-label="親子でバリを移動する様子"></div>
               <span>with you</span>
             </div>
-            <div class="circle-photo has-photo" style="--photo: url('assets/sunset-sea-vertical.jpg'); --pos: center 36%;" data-photo="バリの光" aria-label="バリの海に沈む夕日"></div>
+            <div class="circle-photo has-photo" style="--photo: url('38B2CE91-0AB5-4A52-82D7-B9F17441E5DF.PNG'); --pos: center;" data-photo="BALI" aria-label="バリのイメージ画像"></div>
           </div>
         </div>
       </section>
@@ -2724,8 +2810,8 @@
           </div>
           <div class="moment-grid">
             <article class="moment-card reveal delay-1" style="--photo: url('assets/waterfall-offering.jpg'); --pos: center 44%;"><span>滝と大自然<small>身体がほどける緑の時間</small></span></article>
-            <article class="moment-card reveal delay-1" style="--photo: url('assets/sunset-sea-wide.jpg'); --pos: center;"><span>チャングーの夕日<small>親子で眺める海の色</small></span></article>
-            <article class="moment-card reveal delay-2" style="--photo: url('assets/community-gathering.jpg'); --pos: center 42%;"><span>南国グルメ<small>子どもも食べやすいランチ</small></span></article>
+            <article class="moment-card reveal delay-1" style="--photo: url('assets/IMG_2890.jpg'); --pos: center 48%;"><span>チャングーの夕日<small>親子で眺める海の色</small></span></article>
+            <article class="moment-card reveal delay-2" style="--photo: url('assets/IMG_3322.jpg'); --pos: center 58%;"><span>南国グルメ<small>子どもも食べやすいランチ</small></span></article>
             <article class="moment-card reveal delay-2" style="--photo: url('assets/family-scooter.jpg'); --pos: center 38%;"><span>街歩きと買い物<small>ローカルの空気に触れる</small></span></article>
             <article class="moment-card reveal delay-3" style="--photo: url('assets/temple-offering.jpg'); --pos: center 44%;"><span>祈りと寺院<small>暮らしの中の文化を感じる</small></span></article>
             <article class="moment-card reveal delay-3" style="--photo: url('assets/hero-green-school.jpg'); --pos: center 48%;"><span>カフェと学び<small>世界から集まる親子と出会う</small></span></article>
@@ -2779,24 +2865,91 @@
         <div class="bali-slide-track is-back" aria-hidden="true">
           <div class="loop-photo has-photo" style="--photo: url('assets/temple-offering.jpg'); --pos: center 44%;" data-photo="TEMPLE"></div>
           <div class="loop-photo has-photo" style="--photo: url('assets/child-festival.jpg'); --pos: center 38%;" data-photo="KIDS"></div>
+          <div class="loop-photo has-photo" style="--photo: url('assets/IMG_2835.jpg'); --pos: center 50%;" data-photo="NIGHT BALI"></div>
           <div class="loop-photo has-photo" style="--photo: url('assets/sunset-sea-vertical.jpg'); --pos: center 42%;" data-photo="SEA"></div>
           <div class="loop-photo has-photo" style="--photo: url('assets/family-traditional.jpg'); --pos: 35% 30%;" data-photo="WITH ASUKA"></div>
         </div>
       </section>
 
-      <section class="section bali-gallery" id="gallery">
+      <section class="section bali-calc" id="bali-price-simulator">
         <div class="container">
-          <div class="gallery-head">
-            <span class="section-label reveal">BALI SCENES</span>
-            <h2 class="reveal">バリで出会える景色。</h2>
-            <p class="reveal delay-1">海、寺院、滝、人との交流。写真を見て、少しでも「行ってみたい」と思えたら、その気持ちから始めてください。</p>
-          </div>
-          <div class="gallery-grid">
-            <div class="wide-photo has-photo gallery-photo wide reveal" style="--photo: url('assets/sunset-sea-wide.jpg'); --pos: center;" aria-label="バリの海と夕日"></div>
-            <div class="wide-photo has-photo gallery-photo reveal delay-1" style="--photo: url('assets/waterfall-offering.jpg'); --pos: center 42%;" aria-label="バリの滝と自然"></div>
-            <div class="wide-photo has-photo gallery-photo tall reveal delay-2" style="--photo: url('assets/temple-offering.jpg'); --pos: center 44%;" aria-label="バリの寺院と供物"></div>
-            <div class="wide-photo has-photo gallery-photo reveal delay-2" style="--photo: url('assets/community-gathering.jpg'); --pos: center 42%;" aria-label="バリでの人との交流"></div>
-            <div class="wide-photo has-photo gallery-photo wide reveal delay-3" style="--photo: url('assets/family-scooter.jpg'); --pos: center 36%;" aria-label="バリの街並みと親子"></div>
+          <div class="bali-calc__inner reveal">
+            <div class="bali-calc__head">
+              <span class="section-label">PRICE SIMULATOR</span>
+              <h2>バリツアー<br>概算料金<br>シミュレーター</h2>
+              <p class="bali-calc__lead">人数やプランを入力すると、目安料金を自動で計算します。正式料金はヒアリング後にご案内します。</p>
+            </div>
+
+            <div class="bali-calc__grid">
+              <label class="bali-calc__field">
+                プラン
+                <select id="tourType">
+                  <option value="education_full">教育ツアー｜フルパッケージ</option>
+                  <option value="personal_full">個人ツアー｜フルパッケージ</option>
+                  <option value="school_transfer">スクール＋送迎（空港往復）</option>
+                </select>
+              </label>
+
+              <label class="bali-calc__field">
+                大人人数
+                <input type="number" id="adultCount" min="1" value="2" inputmode="numeric">
+              </label>
+
+              <label class="bali-calc__field">
+                子ども人数
+                <input type="number" id="childCount" min="0" value="1" inputmode="numeric">
+              </label>
+
+              <div id="courseField">
+                <label class="bali-calc__field">
+                  宿泊日程
+                  <select id="courseType">
+                    <option value="6n7d">6泊7日｜滞在5日間</option>
+                    <option value="8n9d">8泊9日｜滞在7日間</option>
+                    <option value="11n12d">11泊12日｜滞在10日間</option>
+                  </select>
+                </label>
+              </div>
+
+              <div id="roomField">
+                <label class="bali-calc__field">
+                  部屋数
+                  <input type="number" id="roomCount" min="1" value="1" inputmode="numeric">
+                </label>
+              </div>
+
+              <div id="hotelField">
+                <label class="bali-calc__field">
+                  ホテルランク
+                  <select id="hotelRank">
+                    <option value="economy">エコノミー</option>
+                    <option value="standard">スタンダード</option>
+                    <option value="deluxe">デラックス</option>
+                  </select>
+                </label>
+              </div>
+
+              <div id="schoolDaysField" hidden>
+                <label class="bali-calc__field">
+                  スクール日数
+                  <select id="manualSchoolDays">
+                    <option value="1">1日</option>
+                    <option value="2">2日</option>
+                    <option value="3">3日</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div id="childAgesWrap" class="bali-calc__ages" aria-live="polite"></div>
+
+            <div class="bali-calc__result" aria-live="polite">
+              <p>概算お見積もり</p>
+              <strong id="totalPrice">¥0</strong>
+              <small id="priceNote"></small>
+            </div>
+
+            <p class="bali-calc__notice">※表示金額は概算です。航空券代は別途かかります。お子さまの年齢、スクール内容、宿泊エリア、送迎場所により変動する場合があります。</p>
           </div>
         </div>
       </section>
@@ -2874,6 +3027,172 @@
   </div>
 
   <script>
+    (() => {
+      const simulator = document.getElementById("bali-price-simulator");
+      if (!simulator) return;
+
+      const CONFIG = {
+        transferFee: 8000,
+        schoolFeePerChildPerDay: 6000,
+        schoolTransferMarginPerDay: 5000,
+        hotelPrices: {
+          economy: 5000,
+          standard: 10000,
+          deluxe: 20000
+        },
+        courses: {
+          "6n7d": {
+            label: "6泊7日",
+            nights: 6,
+            stayDays: 5,
+            schoolDays: 2
+          },
+          "8n9d": {
+            label: "8泊9日",
+            nights: 8,
+            stayDays: 7,
+            schoolDays: 3
+          },
+          "11n12d": {
+            label: "11泊12日",
+            nights: 11,
+            stayDays: 10,
+            schoolDays: 3
+          }
+        }
+      };
+
+      const els = {
+        tourType: document.getElementById("tourType"),
+        adultCount: document.getElementById("adultCount"),
+        childCount: document.getElementById("childCount"),
+        courseType: document.getElementById("courseType"),
+        roomCount: document.getElementById("roomCount"),
+        hotelRank: document.getElementById("hotelRank"),
+        manualSchoolDays: document.getElementById("manualSchoolDays"),
+        courseField: document.getElementById("courseField"),
+        roomField: document.getElementById("roomField"),
+        hotelField: document.getElementById("hotelField"),
+        schoolDaysField: document.getElementById("schoolDaysField"),
+        childAgesWrap: document.getElementById("childAgesWrap"),
+        totalPrice: document.getElementById("totalPrice"),
+        priceNote: document.getElementById("priceNote")
+      };
+
+      const yen = (num) => {
+        return new Intl.NumberFormat("ja-JP", {
+          style: "currency",
+          currency: "JPY",
+          maximumFractionDigits: 0
+        }).format(num);
+      };
+
+      const getNumber = (el, fallback = 0) => {
+        const value = Number(el.value);
+        return Number.isFinite(value) ? value : fallback;
+      };
+
+      const updateChildAgeInputs = () => {
+        const tourType = els.tourType.value;
+        const childCount = Math.max(0, getNumber(els.childCount));
+        const needsAges = tourType === "education_full" || tourType === "school_transfer";
+
+        els.childAgesWrap.innerHTML = "";
+        if (!needsAges || childCount === 0) return;
+
+        for (let i = 1; i <= childCount; i += 1) {
+          const label = document.createElement("label");
+          label.className = "bali-calc__field";
+          label.innerHTML = `
+            お子さま${i}人目の年齢
+            <input type="number" min="0" max="18" placeholder="例：7" inputmode="numeric">
+          `;
+          els.childAgesWrap.appendChild(label);
+        }
+      };
+
+      const updateVisibility = () => {
+        const isSchoolTransferOnly = els.tourType.value === "school_transfer";
+
+        els.courseField.hidden = isSchoolTransferOnly;
+        els.roomField.hidden = isSchoolTransferOnly;
+        els.hotelField.hidden = isSchoolTransferOnly;
+        els.schoolDaysField.hidden = !isSchoolTransferOnly;
+        els.adultCount.min = isSchoolTransferOnly ? "0" : "1";
+
+        if (!isSchoolTransferOnly && getNumber(els.adultCount, 1) < 1) {
+          els.adultCount.value = "1";
+        }
+
+        updateChildAgeInputs();
+      };
+
+      const calculate = () => {
+        const tourType = els.tourType.value;
+        const minAdultCount = tourType === "school_transfer" ? 0 : 1;
+        const adultCount = Math.max(minAdultCount, getNumber(els.adultCount, minAdultCount));
+        const childCount = Math.max(0, getNumber(els.childCount));
+        const roomCount = Math.max(1, getNumber(els.roomCount, 1));
+        const participantNote = `大人${adultCount}名 / 子ども${childCount}名`;
+
+        let total = 0;
+        let note = "";
+
+        if (tourType === "education_full") {
+          const course = CONFIG.courses[els.courseType.value];
+          const hotelPrice = CONFIG.hotelPrices[els.hotelRank.value];
+          const hotelCost = hotelPrice * roomCount * course.nights;
+          const schoolCost = childCount * course.schoolDays * CONFIG.schoolFeePerChildPerDay;
+          const margin = course.stayDays * 20000;
+
+          total = hotelCost + CONFIG.transferFee + schoolCost + margin;
+          note = `${participantNote} / ${course.label} / ホテル${course.nights}泊 / スクール${course.schoolDays}日分 / 送迎込みの概算です。`;
+        }
+
+        if (tourType === "personal_full") {
+          const course = CONFIG.courses[els.courseType.value];
+          const hotelPrice = CONFIG.hotelPrices[els.hotelRank.value];
+          const hotelCost = hotelPrice * roomCount * course.nights;
+          const margin = course.stayDays * 10000;
+
+          total = hotelCost + CONFIG.transferFee + margin;
+          note = `${participantNote} / ${course.label} / ホテル${course.nights}泊 / 送迎込みの個人ツアー概算です。`;
+        }
+
+        if (tourType === "school_transfer") {
+          const schoolDays = Math.max(1, getNumber(els.manualSchoolDays, 1));
+          const schoolCost = childCount * schoolDays * CONFIG.schoolFeePerChildPerDay;
+          const margin = schoolDays * CONFIG.schoolTransferMarginPerDay;
+
+          total = schoolCost + CONFIG.transferFee + margin;
+          note = `${participantNote} / スクール${schoolDays}日分 / 空港往復送迎込みの概算です。宿泊・航空券は含まれません。`;
+        }
+
+        els.totalPrice.textContent = yen(total);
+        els.priceNote.textContent = note;
+      };
+
+      const updateAll = () => {
+        updateVisibility();
+        calculate();
+      };
+
+      [
+        els.tourType,
+        els.adultCount,
+        els.childCount,
+        els.courseType,
+        els.roomCount,
+        els.hotelRank,
+        els.manualSchoolDays
+      ].forEach((el) => {
+        el.addEventListener("input", updateAll);
+        el.addEventListener("change", updateAll);
+      });
+
+      updateAll();
+    })();
+
     const revealTargets = document.querySelectorAll(".reveal, .stamp-pop");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
