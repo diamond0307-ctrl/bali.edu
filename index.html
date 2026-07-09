@@ -6,6 +6,8 @@
   <title>親子で、世界へ。 | Bali Education Tour</title>
   <meta name="description" content="バリで学び、暮らし、親子の人生が広がる旅へ。現地を知る女性案内人が、親子留学や短期滞在の第一歩に寄り添います。">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@500;600;700&family=Parisienne&display=swap');
+
     :root {
       --morning: #f8efd8;
       --cream: #fbf7ec;
@@ -25,9 +27,10 @@
       --line: rgba(31, 49, 43, .12);
       --shadow: 0 24px 70px rgba(31, 49, 43, .16);
       --soft-shadow: 0 18px 48px rgba(31, 49, 43, .11);
-      --heading-font: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
-      --round-font: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
-      --body-font: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+      --heading-font: "Cormorant Garamond", "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+      --round-font: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+      --body-font: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+      --accent-font: "Parisienne", "Cormorant Garamond", cursive;
     }
 
     * { box-sizing: border-box; }
@@ -852,42 +855,95 @@
       line-height: 1.9;
     }
     .moment-grid {
-      display: grid;
-      gap: 16px;
+      display: flex;
+      gap: 18px;
+      margin-inline: calc(50% - 50vw);
+      padding: 8px max(20px, calc((100vw - 1120px) / 2)) 34px;
+      overflow-x: auto;
+      overflow-y: visible;
+      overscroll-behavior-inline: contain;
+      perspective: 1200px;
+      scroll-padding-inline: max(20px, calc((100vw - 1120px) / 2));
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(31,49,43,.25) transparent;
+    }
+    .moment-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+    .moment-grid::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(31,49,43,.24);
     }
     .moment-card {
       position: relative;
-      min-height: 320px;
+      flex: 0 0 min(82vw, 380px);
+      min-height: 520px;
       overflow: hidden;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.66);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.72);
       background-image:
-        linear-gradient(180deg, transparent 26%, rgba(4,45,47,.62) 100%),
+        linear-gradient(180deg, rgba(4,45,47,.02) 0%, rgba(4,45,47,.1) 42%, rgba(4,45,47,.74) 100%),
         var(--photo);
-      background-size: cover;
+      background-size: 108% auto;
       background-position: var(--pos, center);
-      box-shadow: 0 26px 72px rgba(24,120,140,.16);
+      box-shadow:
+        0 30px 82px rgba(24,120,140,.2),
+        0 12px 0 rgba(31,49,43,.06),
+        inset 0 1px 0 rgba(255,255,255,.76);
+      scroll-snap-align: start;
+      transform-style: preserve-3d;
+      transition:
+        transform .65s cubic-bezier(.16,1,.22,1),
+        background-size .8s cubic-bezier(.16,1,.22,1),
+        box-shadow .65s cubic-bezier(.16,1,.22,1);
+    }
+    .moment-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+      background:
+        linear-gradient(118deg, rgba(255,255,255,.58), transparent 24% 62%, rgba(255,255,255,.18)),
+        linear-gradient(90deg, rgba(255,255,255,.24), transparent 18% 84%, rgba(255,255,255,.16));
+      opacity: calc(.32 + var(--section-progress, 0) * .22);
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
     .moment-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, rgba(255,255,255,.18), transparent 42%, rgba(255,138,61,.12));
-      opacity: calc(.28 + var(--section-progress, 0) * .28);
+      border: 1px solid rgba(255,255,255,.34);
+      border-radius: inherit;
+      background:
+        linear-gradient(110deg, transparent 0 28%, rgba(255,255,255,.56) 42%, transparent 54% 100%);
+      background-size: 230% 100%;
+      opacity: .48;
+      animation: whyBorderLight 8.2s ease-in-out infinite;
       pointer-events: none;
+    }
+    .moment-card:hover {
+      background-size: 116% auto;
+      box-shadow:
+        0 44px 118px rgba(24,120,140,.26),
+        0 18px 0 rgba(31,49,43,.07),
+        inset 0 1px 0 rgba(255,255,255,.86);
     }
     .moment-card span {
       position: absolute;
       left: 20px;
       right: 20px;
       bottom: 18px;
-      z-index: 1;
+      z-index: 2;
       color: var(--white);
       font-family: var(--heading-font);
       font-size: clamp(24px, 6.4vw, 38px);
       font-weight: 800;
       line-height: 1.25;
       text-shadow: 0 12px 34px rgba(0,0,0,.28);
+      transform: translateZ(34px);
     }
     .moment-card small {
       display: block;
@@ -897,6 +953,157 @@
       font-weight: 760;
       letter-spacing: .08em;
       opacity: .88;
+    }
+
+    .why-bali {
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 8%, rgba(255,255,255,.72) 0 150px, transparent 152px),
+        radial-gradient(circle at 84% 18%, rgba(24,200,216,.2) 0 230px, transparent 232px),
+        radial-gradient(circle at 18% 86%, rgba(216,154,85,.18) 0 210px, transparent 212px),
+        linear-gradient(145deg, #f7fff9 0%, #e8fbff 42%, #fff6e7 100%);
+    }
+    .why-bali__head {
+      display: grid;
+      gap: 18px;
+      max-width: 820px;
+      margin-bottom: 34px;
+    }
+    .why-bali__lead {
+      color: var(--muted);
+      font-size: clamp(16px, 4vw, 19px);
+      font-weight: 650;
+      line-height: 1.95;
+    }
+    .why-bali__grid {
+      display: grid;
+      gap: 22px;
+      perspective: 1400px;
+    }
+    .why-card {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.66);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,255,255,.34)),
+        rgba(255,253,247,.58);
+      box-shadow:
+        0 34px 90px rgba(31,49,43,.14),
+        inset 0 1px 0 rgba(255,255,255,.86),
+        inset 0 -1px 0 rgba(31,49,43,.08);
+      backdrop-filter: blur(18px);
+      transform-style: preserve-3d;
+      transition:
+        transform .65s cubic-bezier(.16,1,.22,1),
+        box-shadow .65s cubic-bezier(.16,1,.22,1);
+    }
+    .why-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: 2;
+      border-radius: inherit;
+      padding: 1px;
+      background:
+        linear-gradient(115deg, transparent 0 18%, rgba(255,255,255,.96) 32%, rgba(24,200,216,.3) 43%, transparent 58% 100%);
+      background-size: 240% 100%;
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: whyBorderLight 7.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .why-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(118deg, rgba(255,255,255,.56), transparent 26% 62%, rgba(255,255,255,.22)),
+        radial-gradient(circle at 18% 8%, rgba(255,255,255,.56), transparent 24%);
+      opacity: calc(.42 + var(--section-progress, 0) * .22);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .why-card__photo {
+      min-height: 250px;
+      background:
+        linear-gradient(180deg, rgba(4,45,47,.04) 0%, rgba(4,45,47,.18) 100%),
+        var(--photo);
+      background-size: cover;
+      background-position: var(--pos, center);
+      transform: translateZ(22px) scale(1.01);
+      transition: transform .9s cubic-bezier(.16,1,.22,1), filter .7s ease;
+      filter: saturate(1.02) contrast(.98);
+    }
+    .why-card:hover .why-card__photo {
+      transform: translateZ(30px) scale(1.055);
+      filter: saturate(1.08) contrast(1.02);
+    }
+    .why-card__body {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+      transform: translateZ(36px);
+    }
+    .why-card__number {
+      color: rgba(47,101,73,.64);
+      font-family: var(--heading-font);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .16em;
+    }
+    .why-card h3 {
+      font-size: clamp(26px, 7vw, 42px);
+      line-height: 1.22;
+    }
+    .why-card p {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 640;
+      line-height: 1.95;
+    }
+    .why-card__prices,
+    .why-card__breath {
+      display: grid;
+      gap: 9px;
+      margin: 2px 0;
+      padding: 0;
+      list-style: none;
+    }
+    .why-card__prices li,
+    .why-card__breath li {
+      width: fit-content;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.64);
+      color: var(--leaf-deep);
+      font-size: 13px;
+      font-weight: 820;
+      box-shadow: 0 14px 34px rgba(31,49,43,.08);
+    }
+    .why-card__breath {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .why-card.reveal.is-visible:hover {
+      transform:
+        perspective(1200px)
+        translate3d(0, calc(-28px + (-18px * var(--section-progress, 0))), 34px)
+        rotateX(-1.6deg)
+        rotateY(1.8deg)
+        scale(1.012);
+      box-shadow:
+        0 44px 120px rgba(31,49,43,.2),
+        inset 0 1px 0 rgba(255,255,255,.9);
     }
 
     .mom-time {
@@ -1741,6 +1948,7 @@
     .delay-1 { transition-delay: .1s; }
     .delay-2 { transition-delay: .2s; }
     .delay-3 { transition-delay: .3s; }
+    .delay-4 { transition-delay: .4s; }
 
     /* Refined travel-study tone */
     .section-label {
@@ -1929,6 +2137,7 @@
     .flow,
     .experiences,
     .overview,
+    .why-bali,
     .hotel-stays,
     .bali-calc,
     .faq {
@@ -1953,6 +2162,9 @@
     .overview {
       background: linear-gradient(180deg, #fbf5e9, #fffdf7 52%, #efe4d1);
     }
+    .why-bali {
+      background: linear-gradient(145deg, #f7fff9 0%, #e8fbff 42%, #fff6e7 100%);
+    }
     .hotel-stays {
       background: linear-gradient(180deg, #fffaf0 0%, #edf7f3 58%, #fffaf0 100%);
     }
@@ -1969,6 +2181,7 @@
     .category-card,
     .overview-card,
     .faq-item,
+    .why-card,
     .hotel-card,
     .bali-calc__inner,
     .mid-cta {
@@ -2428,6 +2641,11 @@
       from { background-position: 0 0; }
       to { background-position: 896px 0; }
     }
+    @keyframes whyBorderLight {
+      0%, 100% { background-position: 180% 0; opacity: .38; }
+      48% { background-position: -40% 0; opacity: .92; }
+      62% { opacity: .44; }
+    }
 
     /* Motion upgrade: cinematic Bali journey */
     :root {
@@ -2607,6 +2825,40 @@
         rotateZ(0)
         scale(1);
     }
+    .why-card.reveal {
+      transform:
+        perspective(1200px)
+        translate3d(0, 88px, -140px)
+        rotateX(12deg)
+        rotateY(var(--why-tilt, -4deg))
+        scale(.88);
+    }
+    .why-card.reveal.is-visible {
+      transform:
+        perspective(1200px)
+        translate3d(0, calc(-18px * var(--section-progress, 0)), 0)
+        rotateX(calc(1.8deg - (1.8deg * var(--section-progress, 0))))
+        rotateY(0)
+        scale(1);
+    }
+    .moment-card.reveal.is-visible {
+      transform:
+        perspective(1100px)
+        translate3d(0, calc(-16px * var(--section-progress, 0)), 0)
+        rotateX(calc(2deg - (2deg * var(--section-progress, 0))))
+        rotateY(0)
+        rotateZ(0)
+        scale(1);
+    }
+    .moment-card.reveal.is-visible:hover {
+      transform:
+        perspective(1100px)
+        translate3d(0, calc(-30px + (-12px * var(--section-progress, 0))), 40px)
+        rotateX(-2deg)
+        rotateY(2deg)
+        rotateZ(0)
+        scale(1.018);
+    }
     .note-card:nth-child(2),
     .category-card:nth-child(2n),
     .day-item:nth-child(even) { --card-tilt: 1.6deg; }
@@ -2761,9 +3013,7 @@
       .gain-grid, .overview-grid { grid-template-columns: repeat(2, 1fr); }
       .experience-grid { grid-template-columns: repeat(2, 1fr); }
       .day-card { grid-template-columns: .82fr 1fr; align-items: center; }
-      .moment-grid { grid-template-columns: repeat(2, 1fr); }
-      .moment-card:nth-child(1),
-      .moment-card:nth-child(2) { min-height: 420px; }
+      .moment-card { flex-basis: 390px; min-height: 540px; }
       .learning-grid { grid-template-columns: repeat(2, 1fr); }
       .consult-layout { grid-template-columns: 1.05fr .95fr; }
     }
@@ -2809,9 +3059,13 @@
       .intro-grid { grid-template-columns: .92fr 1fr; align-items: center; gap: 56px; }
       .host-layout { grid-template-columns: .88fr 1.12fr; gap: 72px; }
       .host-copy { align-content: center; }
-      .moment-grid { grid-template-columns: 1.25fr .95fr .95fr; gap: 20px; }
-      .moment-card:nth-child(1) { grid-row: span 2; min-height: 620px; }
-      .moment-card:nth-child(2) { grid-column: span 2; min-height: 380px; }
+      .moment-grid { gap: 24px; padding-bottom: 44px; }
+      .moment-card { flex-basis: 430px; min-height: 600px; }
+      .why-bali__head { margin-bottom: 46px; }
+      .why-bali__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+      .why-card { min-height: 720px; }
+      .why-card__photo { min-height: 320px; }
+      .why-card__body { padding: 32px; }
       .mom-time-layout { grid-template-columns: .9fr 1.1fr; gap: 64px; }
       .mom-time-photo { min-height: 620px; }
       .bali-calc__inner { padding: 40px; }
@@ -2870,6 +3124,312 @@
       .hero-actions { padding: 14px; }
     }
 
+    /* Art-directed typography: resort editorial tone */
+    :root {
+      --ink: #1f312b;
+      --muted: #4f675d;
+      --leaf-deep: #314b40;
+      --sand-deep: #a27b4d;
+      --type-gold: #b58b52;
+      --type-terracotta: #b86b4b;
+    }
+    body {
+      color: var(--ink);
+      font-family: var(--body-font);
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: .045em;
+      line-height: 2.05;
+      font-feature-settings: "palt" 1;
+      text-rendering: optimizeLegibility;
+    }
+    h1,
+    h2,
+    h3 {
+      color: var(--ink);
+      font-family: var(--heading-font);
+      font-weight: 600;
+      letter-spacing: .045em;
+      line-height: 1.18;
+      font-feature-settings: "palt" 1;
+    }
+    h1 { font-size: clamp(54px, 9.4vw, 112px); }
+    h2 { font-size: clamp(46px, 7.4vw, 92px); }
+    h3 { font-size: clamp(30px, 4.8vw, 52px); }
+    p,
+    li {
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: .04em;
+      line-height: 2.05;
+    }
+    .section {
+      padding-block: clamp(92px, 11vw, 150px);
+    }
+    .section-label {
+      margin-bottom: 18px;
+      color: var(--type-gold);
+      font-family: var(--body-font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+    .section-label::before {
+      width: 54px;
+      background: linear-gradient(90deg, rgba(181,139,82,.2), var(--type-gold), rgba(184,107,75,.46));
+    }
+    .section-label--script {
+      align-items: baseline;
+      color: var(--type-terracotta);
+      font-family: var(--accent-font);
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 400;
+      letter-spacing: .01em;
+      line-height: 1;
+      text-transform: none;
+    }
+    .section-label--script::before {
+      width: 38px;
+      background: rgba(184,107,75,.44);
+    }
+    .brand {
+      gap: 11px;
+      color: #19352f;
+      font-family: var(--body-font);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+    .brand-word {
+      position: relative;
+      display: inline-block;
+      line-height: 1.02;
+    }
+    .brand-b {
+      position: relative;
+      display: inline-block;
+      margin-right: .03em;
+      color: var(--type-terracotta);
+      font-family: var(--heading-font);
+      font-size: 1.34em;
+      font-style: italic;
+      font-weight: 600;
+      line-height: .82;
+      transform: translateY(.03em);
+    }
+    .brand-b::after {
+      content: "";
+      position: absolute;
+      right: -.16em;
+      top: -.16em;
+      width: .44em;
+      height: .18em;
+      border-top: 1px solid currentColor;
+      border-radius: 100% 0 100% 0;
+      opacity: .72;
+      transform: rotate(-24deg);
+    }
+    .btn {
+      min-height: 52px;
+      padding-inline: 24px;
+      border-radius: 999px;
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      line-height: 1.2;
+      box-shadow: 0 18px 44px rgba(31,49,43,.13);
+    }
+    .btn .mark {
+      font-family: var(--heading-font);
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: .02em;
+      opacity: .72;
+    }
+    .nav-links {
+      font-family: var(--body-font);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .16em;
+    }
+    .eyebrow,
+    .scroll-cue {
+      font-family: var(--accent-font);
+      font-size: clamp(24px, 3.6vw, 38px);
+      font-weight: 400;
+      letter-spacing: .02em;
+      text-transform: none;
+    }
+    .hero h1 {
+      max-width: 1040px;
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: .035em;
+      line-height: 1.08;
+      text-shadow: 0 18px 54px rgba(0,0,0,.44), 0 2px 12px rgba(0,0,0,.28);
+    }
+    .hero h1 .line {
+      color: inherit;
+    }
+    .hero-sub {
+      max-width: 760px;
+      color: rgba(255,253,247,.96);
+      font-family: var(--heading-font);
+      font-size: clamp(23px, 3.3vw, 40px);
+      font-weight: 500;
+      letter-spacing: .05em;
+      line-height: 1.72;
+      text-shadow: 0 12px 36px rgba(0,0,0,.42), 0 2px 10px rgba(0,0,0,.26);
+    }
+    .hero-guide strong,
+    .host-signature,
+    .mom-time-note,
+    .final-copy,
+    .final-message {
+      font-family: var(--heading-font);
+      font-weight: 500;
+      letter-spacing: .055em;
+      line-height: 1.6;
+    }
+    .moments-head,
+    .why-bali__head,
+    .hotel-stays__head,
+    .soft-learning-head {
+      gap: 20px;
+      max-width: 920px;
+      margin-bottom: clamp(38px, 6vw, 68px);
+    }
+    .moments-head p,
+    .gallery-head p,
+    .mom-time-copy p,
+    .soft-learning-head p,
+    .hotel-stays__lead,
+    .why-bali__lead,
+    .consult-lead,
+    .bali-calc__lead {
+      color: var(--muted);
+      font-size: clamp(16px, 2.3vw, 20px);
+      font-weight: 500;
+      letter-spacing: .055em;
+      line-height: 2.1;
+    }
+    .moment-card span {
+      font-family: var(--heading-font);
+      font-size: clamp(36px, 5.5vw, 58px);
+      font-weight: 600;
+      letter-spacing: .04em;
+      line-height: 1.08;
+    }
+    .moment-card small {
+      margin-top: 14px;
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      line-height: 1.5;
+    }
+    .why-card__number,
+    .hotel-card figcaption span,
+    .note-num,
+    .day-dot,
+    .bali-calc__result p,
+    .mini-fact b {
+      font-family: var(--heading-font);
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: .1em;
+    }
+    .why-card__number {
+      color: rgba(181,139,82,.78);
+      font-size: clamp(28px, 5vw, 54px);
+      line-height: .9;
+    }
+    .why-card h3,
+    .learning-card h3,
+    .consult-panel h3 {
+      font-family: var(--heading-font);
+      font-weight: 600;
+      letter-spacing: .05em;
+      line-height: 1.22;
+    }
+    .why-card p,
+    .learning-card p,
+    .faq-item p,
+    .bali-calc__notice,
+    .bali-calc__package {
+      font-weight: 500;
+      letter-spacing: .045em;
+      line-height: 2.05;
+    }
+    .why-card__prices li,
+    .why-card__breath li,
+    .mom-time-list span,
+    .hotel-stays__badge,
+    .consult-items span {
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .08em;
+    }
+    .faq-item summary {
+      font-family: var(--heading-font);
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 600;
+      letter-spacing: .045em;
+    }
+    .bali-calc__result strong {
+      font-family: var(--heading-font);
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+    .final-text h2 {
+      color: var(--white);
+    }
+    footer {
+      font-family: var(--body-font);
+      font-weight: 500;
+      letter-spacing: .12em;
+    }
+    @media (max-width: 520px) {
+      body {
+        font-size: 15px;
+        letter-spacing: .035em;
+      }
+      h1 { font-size: clamp(42px, 13vw, 58px); }
+      h2 { font-size: clamp(38px, 11vw, 54px); }
+      h3 { font-size: clamp(28px, 8.4vw, 40px); }
+      .section { padding-block: 88px; }
+      .hero-sub {
+        font-size: clamp(21px, 6.4vw, 28px);
+        line-height: 1.72;
+      }
+      .section-label--script {
+        font-size: 32px;
+      }
+      .moments-head p,
+      .why-bali__lead,
+      .mom-time-copy p,
+      .soft-learning-head p,
+      .hotel-stays__lead,
+      .consult-lead {
+        font-size: 16px;
+        line-height: 2;
+      }
+      .btn {
+        width: 100%;
+        font-size: 12px;
+        letter-spacing: .1em;
+      }
+      .moment-card span {
+        font-size: clamp(34px, 10vw, 44px);
+      }
+      .why-card__number {
+        font-size: 36px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: .01ms !important;
@@ -2913,7 +3473,7 @@
       <div class="nav-inner">
         <a class="brand" href="#top" aria-label="Bali Education Tour トップへ">
           <span class="brand-badge">☀</span>
-          <span>BALI<br>EDU TOUR</span>
+          <span class="brand-word"><span class="brand-b">B</span>ALI<br>EDU TOUR</span>
         </a>
         <div class="nav-links">
           <a href="#about">GUIDE</a>
@@ -2937,7 +3497,7 @@
             <span class="line">BALI島で親子の</span>
             <span class="line accent-line">忘れられない思い出を。</span>
           </h1>
-          <p class="hero-sub reveal delay-2">個人旅行、親子旅行のお手伝いをします。<br>ただの観光では終わらない旅をご提供。</p>
+          <p class="hero-sub reveal delay-2">2026年8月10日〜9月10日の期間</p>
         </div>
         <div class="hero-actions reveal delay-3">
           <div class="hero-guide">
@@ -2994,7 +3554,7 @@
         <div class="container">
           <div class="moments-head">
             <span class="section-label reveal">BALI DAYS</span>
-            <h2 class="reveal">「非日常」という<br>体験を。</h2>
+            <h2 class="reveal">ご希望の日程で、<br>さまざまな体験を。</h2>
             <p class="reveal delay-1">子どもの学びだけで終わらない。お母さんも、家族も、「ここへ来てよかった」と思える場所へ。</p>
           </div>
           <div class="moment-grid">
@@ -3003,7 +3563,67 @@
             <article class="moment-card reveal delay-2" style="--photo: url('assets/IMG_3322.jpg'); --pos: center 58%;"><span>南国グルメ<small>子どもも食べやすいランチ</small></span></article>
             <article class="moment-card reveal delay-2" style="--photo: url('assets/family-scooter.jpg'); --pos: center 38%;"><span>街歩きと買い物<small>ローカルの空気に触れる</small></span></article>
             <article class="moment-card reveal delay-3" style="--photo: url('assets/temple-offering.jpg'); --pos: center 44%;"><span>祈りと寺院<small>暮らしの中の文化を感じる</small></span></article>
-            <article class="moment-card reveal delay-3" style="--photo: url('assets/hero-green-school.jpg'); --pos: center 48%;"><span>カフェと学び<small>世界から集まる親子と出会う</small></span></article>
+            <article class="moment-card reveal delay-3" style="--photo: url('assets/hero-green-school.jpg'); --pos: center 48%;"><span>現地のスクール体験<small>世界から集まる親子と出会う</small></span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section why-bali" id="why-bali">
+        <div class="container">
+          <div class="why-bali__head">
+            <span class="section-label section-label--script">Why Bali?</span>
+            <h2>なぜ、<br>バリ島なのか。</h2>
+            <p class="why-bali__lead reveal delay-1">海外なら、<br>どこでもいいわけではありません。<br>人生の価値観が少し変わる場所だから、<br>私たちはバリを選びました。</p>
+          </div>
+          <div class="why-bali__grid">
+            <article class="why-card reveal delay-1" style="--photo: url('assets/why-bali-global.jpg'); --pos: center 38%; --why-tilt: -5deg;">
+              <div class="why-card__photo" aria-label="世界中から集まった人たちが自然に交流するバリの時間"></div>
+              <div class="why-card__body">
+                <span class="why-card__number">01</span>
+                <h3>世界中から人が集まる島</h3>
+                <p>バリには世界中から旅人、起業家、クリエイター、教育者、家族が集まります。</p>
+                <p>日本では出会えない価値観や文化、人との会話が、新しい視点を与えてくれます。</p>
+                <p>「これが普通」という思い込みが、少しずつほどけていきます。</p>
+              </div>
+            </article>
+            <article class="why-card reveal delay-2" style="--photo: url('assets/why-bali-price.jpg'); --pos: center 50%; --why-tilt: 4deg;">
+              <div class="why-card__photo" aria-label="バリのカフェや食事を楽しむライフスタイルの写真"></div>
+              <div class="why-card__body">
+                <span class="why-card__number">02</span>
+                <h3>物価がまだまだ安い</h3>
+                <p>日本では特別なご褒美になることも、バリでは日常になります。</p>
+                <ul class="why-card__prices">
+                  <li>コーヒー 約350円</li>
+                  <li>90分スパ 約3,500円</li>
+                  <li>ローカルご飯 約500〜800円</li>
+                </ul>
+                <p>無理をしなくても、心を満たす時間を楽しめる場所です。</p>
+              </div>
+            </article>
+            <article class="why-card reveal delay-3" style="--photo: url('assets/temple-offering.jpg'); --pos: center 42%; --why-tilt: -3deg;">
+              <div class="why-card__photo" aria-label="朝のお供えや寺院に息づくバリの暮らし"></div>
+              <div class="why-card__body">
+                <span class="why-card__number">03</span>
+                <h3>幸福度が高い理由</h3>
+                <p>バリの人たちは、いつも笑顔で穏やかです。</p>
+                <p>毎日お供えをし、家族を大切にし、自然に感謝しながら暮らしています。</p>
+                <p>豊かさは、お金だけではない。そんな価値観に、自然と触れることができます。</p>
+              </div>
+            </article>
+            <article class="why-card reveal delay-4" style="--photo: url('assets/why-bali-now.jpg'); --pos: center 58%; --why-tilt: 5deg;">
+              <div class="why-card__photo" aria-label="ウブドの森や渓谷のような静かな自然の空気"></div>
+              <div class="why-card__body">
+                <span class="why-card__number">04</span>
+                <h3>今を感じる時間</h3>
+                <p>旅行の魅力は、景色を見ることではありません。環境を変えることで、時間の使い方が変わることです。</p>
+                <ul class="why-card__breath">
+                  <li>急がない。</li>
+                  <li>比べない。</li>
+                  <li>競わない。</li>
+                </ul>
+                <p>特にウブドには、そんな空気があります。日本では忘れがちな「今、この瞬間」を感じられる場所です。</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -3013,7 +3633,7 @@
           <div class="photo-frame has-photo mom-time-photo reveal" style="--photo: url('assets/sunset-sea-vertical.jpg'); --pos: center 38%;" aria-label="バリの夕日と海"></div>
           <div class="mom-time-copy reveal delay-1">
             <span class="section-label">MOTHER'S TIME</span>
-            <h2>子どもが学ぶ時間は、<br>お母さんが自分を満たす時間。</h2>
+            <h2>親が満たされること。<br>それが子どもの望みです。</h2>
             <p>子どもがスクールにいる間、お母さんも少し自由に。スパ、ヨガ、カフェ、ショッピング、ビーチ。バリでは、休むことも旅の一部です。</p>
             <div class="mom-time-list">
               <span>スパ</span><span>ヨガ</span><span>カフェ</span><span>ショッピング</span><span>ビーチ</span>
