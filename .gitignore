@@ -14,6 +14,11 @@
 *.jpeg
 !assets/*.jpg
 !assets/*.jpeg
+!assets/**/
+!assets/**/*.jpg
+!assets/**/*.jpeg
+!assets/**/*.png
+!assets/**/*.PNG
 
 # Local assistant/project notes
 AGENTS.md
