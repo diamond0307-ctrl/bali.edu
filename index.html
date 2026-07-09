@@ -3408,11 +3408,14 @@
         padding-top: 38px;
       }
       .hero h1 {
-        font-size: clamp(48px, 12.8vw, 64px);
+        font-size: clamp(39px, 10.6vw, 52px);
         line-height: 1.06;
       }
+      .hero h1 .line {
+        white-space: nowrap;
+      }
       .host-copy h2 {
-        font-size: clamp(37px, 9.8vw, 50px);
+        font-size: clamp(34px, 8.2vw, 43px);
         line-height: 1.32;
       }
       .hero-sub {
@@ -3468,6 +3471,49 @@
     }
 
     @media (max-width: 900px) {
+      h2 {
+        font-size: clamp(36px, 6vw, 50px);
+        line-height: 1.22;
+      }
+      .intro-grid,
+      .host-layout,
+      .why-bali__grid,
+      .mom-time-layout,
+      .learning-grid,
+      .bali-calc__grid,
+      .bali-calc__ages,
+      .consult-layout,
+      .overview-layout,
+      .overview-grid,
+      .asuka-layout,
+      .gains-layout,
+      .experience-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-facts {
+        grid-template-columns: 1fr;
+      }
+      .host-layout,
+      .mom-time-layout,
+      .consult-layout,
+      .overview-layout {
+        gap: 34px;
+      }
+      .final-card {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 34px;
+      }
+      .final-text {
+        max-width: none;
+      }
+      .why-card,
+      .mom-time-photo {
+        min-height: auto;
+      }
+      .bali-calc__inner {
+        padding: 28px;
+      }
       .moment-grid {
         gap: 18px;
         margin-inline: -20px;
@@ -3487,8 +3533,35 @@
         background-size: 108% auto;
       }
       .host-copy h2 {
-        font-size: clamp(37px, 6vw, 54px);
+        font-size: clamp(34px, 4.8vw, 43px);
         line-height: 1.34;
+      }
+      .mom-time-copy h2,
+      .bali-calc h2,
+      .overview h2,
+      .final-text h2 {
+        font-size: clamp(36px, 5.8vw, 48px);
+        line-height: 1.24;
+      }
+      .learning-card h3,
+      .overview-card strong,
+      .faq-item summary {
+        font-size: clamp(20px, 3.2vw, 26px);
+        letter-spacing: .02em;
+        line-height: 1.45;
+      }
+      .bali-calc__lead,
+      .bali-calc__package,
+      .bali-calc__package-note {
+        letter-spacing: .02em;
+        line-height: 1.9;
+      }
+      .hero h1 {
+        font-size: clamp(48px, 7.4vw, 68px);
+        line-height: 1.06;
+      }
+      .hero h1 .line {
+        white-space: nowrap;
       }
       .why-card h3:first-of-type {
         font-size: clamp(28px, 4.4vw, 40px);
@@ -3601,7 +3674,7 @@
         <div class="container host-layout">
           <div class="host-copy reveal">
             <span class="section-label">ASUKA FUJIKI</span>
-            <h2>バリで暮らす私が、<br>親子のペースでご案内します。</h2>
+            <h2>バリで暮らす私が、<br>親子のペースで<br>ご案内します。</h2>
             <div class="host-profile">
               <strong>藤木あすか</strong>
               <span>バリ島在住 / エデュケーションツアー主催</span>
