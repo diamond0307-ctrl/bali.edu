@@ -2941,11 +2941,12 @@
     }
     .bali-slide-track.is-back,
     .bali-slide-track:nth-child(2) {
+      animation-name: loopSlideZoomBack;
       animation-duration: 34s;
       animation-delay: -17s;
-      opacity: .7;
-      filter: saturate(.92) brightness(.95);
-      transform: translateZ(-120px) scale(.88);
+      opacity: .55;
+      filter: saturate(.9) brightness(.94) blur(1px);
+      transform: translateZ(-150px) scale(.82);
     }
     .loop-photo {
       flex-basis: min(62vw, 560px);
@@ -2999,6 +3000,10 @@
     @keyframes loopSlideZoom {
       0% { transform: translateX(0) translateZ(0); }
       100% { transform: translateX(calc(-100% - 36px)) translateZ(0); }
+    }
+    @keyframes loopSlideZoomBack {
+      0% { transform: translateX(0) translateZ(-150px) scale(.82); }
+      100% { transform: translateX(calc(-100% - 36px)) translateZ(-150px) scale(.82); }
     }
     @keyframes slidePhotoBreath {
       0% { transform: rotate(var(--tilt)) scale(1); }
